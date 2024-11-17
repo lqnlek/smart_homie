@@ -3,4 +3,4 @@ include/
 lib/
 lib64
 pyvenv.cfg
-__pycache__/hello.cpython-310.pyc
+__pycache__/
