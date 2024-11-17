@@ -10,3 +10,10 @@
 - SQLAlchemy ORM for database communication
 - SQLite database
 
+
+
+# post command
+➜  ~ curl -X POST -H "Content-Type: application/json" -d '{
+  "name": "lottery",       
+  "amount": 1000.0
+}' http://localhost:5000/books
