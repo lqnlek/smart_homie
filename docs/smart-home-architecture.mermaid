@@ -1,0 +1,64 @@
+flowchart TB
+    subgraph Sensors["Sensors/Microcontrollers (C)"]
+        S1[Temperature Sensor]
+        S2[Humidity Sensor]
+        S3[Other Sensors...]
+    end
+
+    subgraph RaspberryPi["Raspberry Pi Hub"]
+        subgraph Integration["System Integration (C)"]
+            MQTT[MQTT Broker]
+            HTTP[HTTP Server]
+            UART[UART Handler]
+        end
+
+        subgraph API["REST API (Python)"]
+            Flask[Flask/FastAPI Server]
+            Bindings[C Bindings]
+        end
+
+        subgraph DB["Core Database (C)"]
+            Storage[Binary File Storage]
+            Index[Indexing System]
+            DataRotation[Data Rotation]
+        end
+    end
+
+    subgraph Frontend["Frontend Applications"]
+        Web[Web Interface]
+        Desktop[Desktop App]
+        Mobile[Mobile App]
+    end
+
+    %% Sensor connections
+    S1 --> |Data| Integration
+    S2 --> |Data| Integration
+    S3 --> |Data| Integration
+
+    %% Integration layer connections
+    MQTT --> |Forward Data| API
+    HTTP --> |Forward Data| API
+    UART --> |Forward Data| API
+
+    %% API connections
+    Flask --> |Query/Insert| Bindings
+    Bindings --> |C Functions| DB
+
+    %% Database internal flow
+    Storage --> |Read| Index
+    Index --> |Write| Storage
+    DataRotation --> |Manage| Storage
+
+    %% Frontend connections
+    Web --> |REST Calls| Flask
+    Desktop --> |REST Calls| Flask
+    Mobile --> |REST Calls| Flask
+
+    %% Return data flow
+    Flask --> |JSON Response| Web
+    Flask --> |JSON Response| Desktop
+    Flask --> |JSON Response| Mobile
+
+    style RaspberryPi fill:#f9f,stroke:#333,stroke-width:2px
+    style Sensors fill:#bbf,stroke:#333,stroke-width:2px
+    style Frontend fill:#bfb,stroke:#333,stroke-width:2px
