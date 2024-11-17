@@ -10,7 +10,9 @@
 - SQLAlchemy ORM for database communication
 - SQLite database
 
+## Tutorial
 
+- https://auth0.com/blog/developing-restful-apis-with-python-and-flask/#-span-id--python-classes----span--Mapping-Models-with-Python-Classes
 
 # post command
 ➜  ~ curl -X POST -H "Content-Type: application/json" -d '{
